@@ -2,42 +2,7 @@ Este proyecto ayuda con la generacion de contraseñas seguras para aquellos usua
 
 
 Proseso:
-Definir Requisitos: Comienza ingresando los requisitos para las contraseñas que deseas generar. Estos requisitos pueden incluir la longitud deseada de la contraseña y los tipos de caracteres permitidos, como letras mayúsculas, minúsculas, números y símbolos.
-Seleccionar Caracteres: Basado en los requisitos previos, crear un conjunto de caracteres permitidos que se utilizarán para construir las contraseñas. Esto podría incluir letras mayúsculas, letras minúsculas, dígitos
-numéricos y símbolos especiales.
-Dar Aleatoriedad: Una vez definido los caracteres para generar la contraseña se utiliza fuente para darle un aleatoridad a los caracteres utilizados en la contraeña.
-Generar Contraseña: Utiliza los caracteres aleatorios seleccionados para construir la contraseña. Puede hacerlo eligiendo caracteres de manera secuencial o al azar.
-Validación: Si tienes requisitos específicos para la contraseña, como la inclusión de al menos un número o un símbolo, valida la contraseña generada para asegurarte de que cumpla con esos requisitos. Si no cumple, se repite el procesoimport random
+El algoritmo comienza solicitando al usuario los requisitos para la contraseña, incluyendo la longitud deseada y la elección de caracteres permitidos, como letras mayúsculas, minúsculas, números y símbolos. Luego, se seleccionan los caracteres permitidos en función de las preferencias del usuario y se mezclan aleatoriamente para añadir variabilidad. Después, se genera la contraseña utilizando los caracteres permitidos, ya sea de forma secuencial o aleatoria, hasta alcanzar la longitud deseada. Si se han establecido requisitos específicos para la contraseña, el algoritmo valida la contraseña generada y, si no cumple con esos requisitos, genera una nueva contraseña. Esto garantiza que la contraseña final sea segura y cumpla con los criterios especificados por el usuario.
 
 
 
-import random
-import string
-
-def generar_contrasena():
-    longitud = int(input("Longitud de la contraseña deseada: "))
-    mayusculas = int(input("Cantidad de letras mayúsculas deseadas: "))
-    minusculas = int(input("Cantidad de letras minúsculas deseadas: "))
-    numeros = int(input("Cantidad de números deseados: "))
-    especiales = int(input("Cantidad de caracteres especiales deseados: "))
-
-    caracteres = ''
-    
-    if mayusculas > 0:
-        caracteres += ''.join(random.choice(string.ascii_uppercase) for _ in range(mayusculas))
-    if minusculas > 0:
-        caracteres += ''.join(random.choice(string.ascii_lowercase) for _ in range(minusculas))
-    if numeros > 0:
-        caracteres += ''.join(random.choice(string.digits) for _ in range(numeros))
-    if especiales > 0:
-        caracteres += ''.join(random.choice(string.punctuation) for _ in range(especiales))
-
-    while len(caracteres) < longitud:
-        caracteres += random.choice(string.ascii_letters + string.digits + string.punctuation)
-    
-    contrasena = ''.join(random.sample(caracteres, len(caracteres)))
-    
-    return contrasena
-
-contrasena_generada = generar_contrasena()
-print("Contraseña generada:", contrasena_generada)
