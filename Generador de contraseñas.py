@@ -8,44 +8,54 @@ def generar_contrasena():
     numeros = int(input("Cantidad de números: "))
     especiales = int(input("Cantidad de caracteres especiales: "))
 
-    # Comprueba que la longitud de la contraseña
     if longitud < mayusculas + minusculas + numeros + especiales:
         print("La longitud de la contraseña debe ser mayor o igual a la suma de las cantidades especificadas.")
         return None
 
-    caracteres_mayusculas = string.ascii_uppercase
-    caracteres_minusculas = string.ascii_lowercase
-    caracteres_numeros = string.digits
-    caracteres_especiales = string.punctuation
+    carac_may = string.ascii_uppercase
+    carac_min = string.ascii_lowercase
+    carac_num = string.digits
+    carac_esp = string.punctuation
 
-    if mayusculas > len(caracteres_mayusculas):
+    if mayusculas > len(carac_may):
         print("La cantidad de letras mayúsculas especificada es mayor de la disponible.")
         return None
-    if minusculas > len(caracteres_minusculas):
+    if minusculas > len(carac_min):
         print("La cantidad de letras minúsculas especificada es mayor de la disponible.")
         return None
-    if numeros > len(caracteres_numeros):
+    if numeros > len(carac_num):
         print("La cantidad de números especificada es mayor de la disponible.")
         return None
-    if especiales > len(caracteres_especiales):
+    if especiales > len(carac_esp):
         print("La cantidad de caracteres especiales especificada es mayor de la disponible.")
         return None
 
-    # Genera aleatoriamente los caracteres
-    contrasena = ''.join(random.choice(caracteres_mayusculas) for _ in range(mayusculas))
-    contrasena += ''.join(random.choice(caracteres_minusculas) for _ in range(minusculas))
-    contrasena += ''.join(random.choice(caracteres_numeros) for _ in range(numeros))
-    contrasena += ''.join(random.choice(caracteres_especiales) for _ in range(especiales))
+    contrasenas = []
 
+    for _ in range(4):
+        contrasena = ''.join(random.choice(carac_may) for _ in range(mayusculas))
+        contrasena += ''.join(random.choice(carac_min) for _ in range(minusculas))
+        contrasena += ''.join(random.choice(carac_num) for _ in range(numeros))
+        contrasena += ''.join(random.choice(carac_esp) for _ in range(especiales))
 
-    while len(contrasena) < longitud:
-        tipo_caracter = random.choice([caracteres_mayusculas, caracteres_minusculas, caracteres_numeros, caracteres_especiales])
-        contrasena += random.choice(tipo_caracter)
+        while len(contrasena) < longitud:
+            tipo_caracter = random.choice([carac_may, carac_min, carac_num, carac_esp])
+            contrasena += random.choice(tipo_caracter)
 
-    contrasena = ''.join(random.sample(contrasena, len(contrasena)))
+        contrasena = ''.join(random.sample(contrasena, len(contrasena)))
+        contrasenas.append(contrasena)
 
-    return contrasena
+    print("Contraseñas generadas:")
+    for i, contrasena in enumerate(contrasenas):
+        print(f"{i + 1}: {contrasena}")
+
+    seleccion = int(input("Selecciona la contraseña que deseas usar (1, 2, 3 o 4): "))
+    if 1 <= seleccion <= 4:
+        return contrasenas[seleccion - 1]
+    else:
+        print("Selección inválida. Se utilizará la primera contraseña.")
+        return contrasenas[0]
 
 contrasena_generada = generar_contrasena()
 if contrasena_generada:
-    print("Contraseña generada:", contrasena_generada)
+    print("Contraseña seleccionada:", contrasena_generada)
